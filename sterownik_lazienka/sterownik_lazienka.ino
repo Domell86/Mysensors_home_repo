@@ -82,10 +82,10 @@ void loop(){
   if(digitalRead(bi1) == HIGH){
     delay(50);
     if(digitalRead(bi1) == HIGH){
-      bi_stat[0] = true;     
+      bi_state[0] = true;     
     }
   } else{
-    bi_stat[0] = false;  
+    bi_state[0] = false;  
   }
   
   if (millis() >= time_fade){
