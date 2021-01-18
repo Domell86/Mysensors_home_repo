@@ -58,7 +58,7 @@ void setup() {
   send(msgAO1.set(ao_state,1));
 
   // wyslij wejscia default
-  send(msgBI1.set(bi_state[0],1));
+  send(msgBI1.set(bi_state[0]));
 }
 
 void receive(const MyMessage &message){
@@ -74,6 +74,20 @@ void receive(const MyMessage &message){
 
 // petla glowna *************************************************//
 void loop(){ 
+  if(bi_state_old[0] != bi_state[0]){
+    send(msgBI1.set(bi_state[0]));
+    bi_state_old[0] = bi_state[0];
+  }
+  
+  if(digitalRead(bi1) == HIGH){
+    delay(50);
+    if(digitalRead(bi1) == HIGH){
+      bi_stat[0] = true;     
+    }
+  } else{
+    bi_stat[0] = false;  
+  }
+  
   if (millis() >= time_fade){
     if(pwm < set_pwm){
        pwm++;
