@@ -37,6 +37,7 @@ int last_hour = 0;
 int set_pwm = 0;
 int pwm = 0;
 unsigned long time_fade = 0;
+unsigned long time_to_back = 0;
 
 // funkcje ******************************************************//
 void presentation(){
@@ -75,8 +76,18 @@ void receive(const MyMessage &message){
 // petla glowna *************************************************//
 void loop(){ 
   if(bi_state_old[0] != bi_state[0]){
-    send(msgBI1.set(bi_state[0]));
-    bi_state_old[0] = bi_state[0];
+    if(bi_state[0] == true){
+      send(msgBI1.set(bi_state[0]));
+      bi_state_old[0] = bi_state[0];
+      time_to_back = millis() + 10000;
+    } else{
+      if(millis() >= time_to_back){
+        send(msgBI1.set(bi_state[0]));
+        bi_state_old[0] = bi_state[0];        
+        time_to_back = millis() + 10000;  
+      }
+      
+    }
   }
   
   if(digitalRead(bi1) == HIGH){
