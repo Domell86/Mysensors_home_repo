@@ -8,6 +8,7 @@
 
 // IO
 #define ao1     3     // AO1 led
+#define bi1     4     // BI1 czujnik ruchu
 
 // radio 
 #define MY_RADIO_NRF24
@@ -37,20 +38,17 @@ int pwm = 0;
 unsigned long time_fade = 0;
 
 // funkcje ******************************************************//
-void receiveTime(uint32_t ts){
-  setTime(ts);  
+void presentation(){
+  char etykieta[] = "       ";
+  int addr = MY_NODE_ID;
+  sprintf(etykieta,"R%02u.AO1",addr);  present(CHILD_ID_AO1, S_DIMMER, etykieta);
+  sprintf(etykieta,"R%02u.BI1",addr);  present(CHILD_ID_BI1, S_DOOR, etykieta);  
 }
 
 // setup przy starcie *******************************************//
 void setup() {
   // initialize outputs
-  pinMode(bo1, OUTPUT);  digitalWrite(bo1,  HIGH);
-  pinMode(bo2, OUTPUT);  digitalWrite(bo2,  HIGH);
-  pinMode(bo3, OUTPUT);  digitalWrite(bo3,  HIGH);
-  pinMode(bo4, OUTPUT);  digitalWrite(bo4,  HIGH);
-  pinMode(ao1,OUTPUT);   analogWrite(ao1,0);
-  pinMode(bi1,INPUT_PULLUP);
-  pinMode(bi2,INPUT_PULLUP);
+  pinMode(bi1,INPUT);
 
   // Send the sketch version information to the gateway
   sendSketchInfo("DOM-LAZ", "1.0");
@@ -58,10 +56,7 @@ void setup() {
   // Register all sensors to gw 
   // set unique name from node addres and child output name
   // R means Radio transport (if you are using other gateway too)
-  char etykieta[] = "       ";
-  int addr = MY_NODE_ID;
-  sprintf(etykieta,"R%02u.AO1",addr);  present(CHILD_ID_AO1, S_DIMMER, etykieta);
-  sprintf(etykieta,"R%02u.BI1",addr);  present(CHILD_ID_BI1, S_DOOR, etykieta);
+
 
   // Wyslij domyslne stany wyjsc
   send(msgAO1.set(ao_state,1));
@@ -83,10 +78,10 @@ void receive(const MyMessage &message){
 
 // petla glowna *************************************************//
 void loop(){ 
-  if (hour() != last_hour){
-    sendHeartbeat();
-    last_hour = hour();
-  }
+  //if (hour() != last_hour){
+  //  sendHeartbeat();
+  //  last_hour = hour();
+  //}
     
   if (millis() >= time_fade){
     if(pwm < set_pwm){
