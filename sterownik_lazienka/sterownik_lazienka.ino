@@ -12,8 +12,9 @@
 
 // radio 
 #define MY_RADIO_NRF24
+#define MY_REPEATER_FEATURE
 #define MY_DEBUG            // Enable debug prints
-#define MY_NODE_ID      8   // <--- !!! SET NODE ADDRESS HERE !!!
+#define MY_NODE_ID      1   // <--- !!! SET NODE ADDRESS HERE !!!
 #define MY_RF24_CHANNEL 80  // channel from 0 to 125. 76 is default
 
 // library
