@@ -39,6 +39,9 @@ unsigned long time_fade = 0;
 
 // funkcje ******************************************************//
 void presentation(){
+  // Send the sketch version information to the gateway
+  sendSketchInfo("DOM-LAZ", "1.0");
+    
   char etykieta[] = "       ";
   int addr = MY_NODE_ID;
   sprintf(etykieta,"R%02u.AO1",addr);  present(CHILD_ID_AO1, S_DIMMER, etykieta);
@@ -49,14 +52,6 @@ void presentation(){
 void setup() {
   // initialize outputs
   pinMode(bi1,INPUT);
-
-  // Send the sketch version information to the gateway
-  sendSketchInfo("DOM-LAZ", "1.0");
-
-  // Register all sensors to gw 
-  // set unique name from node addres and child output name
-  // R means Radio transport (if you are using other gateway too)
-
 
   // Wyslij domyslne stany wyjsc
   send(msgAO1.set(ao_state,1));
@@ -78,11 +73,6 @@ void receive(const MyMessage &message){
 
 // petla glowna *************************************************//
 void loop(){ 
-  //if (hour() != last_hour){
-  //  sendHeartbeat();
-  //  last_hour = hour();
-  //}
-    
   if (millis() >= time_fade){
     if(pwm < set_pwm){
        pwm++;
