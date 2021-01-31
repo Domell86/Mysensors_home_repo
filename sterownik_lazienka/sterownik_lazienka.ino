@@ -34,10 +34,11 @@ int pwm = 0;                                                      // aktualna wa
 unsigned long time_fade = 0;                                      // zmienna pomocnicza do obsługi ściemniania
 unsigned long time_to_back = 0;                                   // zmienna pomocnicza do obsługi czasów wysyłki stanu BI
 unsigned long bi_interval = 5000;                                 // interwał wysyłki danych po przejśćiu BI na false
+unsigned long fade_interval = 25;                                 // czas w mS pomiędzy zmianami wysterowania PWM
 
 // funkcje *******************************************************//
 void presentation(){                                              // funkcja prezentacji węzła
-  sendSketchInfo("DOM-LAZ", "1.1");                               // Send the sketch version information to the gateway
+  sendSketchInfo("DOM-LAZ", "1.2");                               // Send the sketch version information to the gateway
   char etykieta[] = "       ";                                    // zmienna pomocnicza
   int addr = MY_NODE_ID;                                          // pobieram adres ze stałej  
   sprintf(etykieta,"R%02u.AO1",addr);                             // przygotowuję prezentację dla AO1
@@ -101,7 +102,7 @@ void loop(){
        pwm--;                                                     // odejmij jeden
     }    
     analogWrite(ao1,pwm);                                         // ustaw wysterowanie wyjścia na bieżący PWM
-    time_fade = millis() + 25;                                    // ustaw czas wykonania następnego kroku za 25mS
+    time_fade = millis() + fade_interval;                                    // ustaw czas wykonania następnego kroku za 25mS
   }
 }
 // **************************************************************//
