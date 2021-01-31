@@ -60,7 +60,7 @@ void receive(const MyMessage &message){                           // jeśli przy
 // setup przy starcie ********************************************//
 void setup() {
   pinMode(bi1,INPUT);                                             // skonfiguruj wejście dla czujnika ruchu
-  send(msgAO1.set(0.0,1));                                   // Wyslij domyslny stan wyjscia po radiu
+  send(msgAO1.set(0.0,1));                                        // Wyslij domyslny stan wyjscia po radiu
   send(msgBI1.set(bi_state[0]));                                  // wyslij domyślny stan wejscia
 }
 
