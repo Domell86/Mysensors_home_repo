@@ -43,7 +43,7 @@ void presentation(){                                              // funkcja pre
   sprintf(etykieta,"R%02u.AO1",addr);                             // przygotowuję prezentację dla AO1
   present(CHILD_ID_AO1, S_DIMMER, etykieta);                      // wysyłam prezentację AO1
   sprintf(etykieta,"R%02u.BI1",addr);                             // przygotowuję prezentację dla BI1
-  present(CHILD_ID_BI1, S_DOOR, etykieta);                        // wysyłam prezentację dla BI1
+  present(CHILD_ID_BI1, S_MOTION, etykieta);                        // wysyłam prezentację dla BI1
 }
 
 void receive(const MyMessage &message){                           // jeśli przyszła komenda po radiu
