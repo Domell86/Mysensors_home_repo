@@ -1,23 +1,22 @@
-// **************************************************************//
+// ***************************************************************//
 // AS-0241R 
 // ARDUINO 2 Binary inputs, 4 Binary Outputs, 1 PWM output  
 // mysensors node 
 // SQ9MDD @ 2019
-// **************************************************************//
+// ***************************************************************//
 
 // radio 
 #define MY_RADIO_NRF24
 #define MY_REPEATER_FEATURE
-#define MY_DEBUG            // Enable debug prints
-#define MY_NODE_ID      1   // <--- !!! SET NODE ADDRESS HERE !!!
-#define MY_RF24_CHANNEL 80  // channel from 0 to 125. 76 is default
+#define MY_DEBUG                                                  // Enable debug prints
+#define MY_NODE_ID      1                                         // <--- !!! SET NODE ADDRESS HERE !!!
+#define MY_RF24_CHANNEL 88                                        // channel from 0 to 125. 76 is default
 
 // IO
-#define ao1     3     // AO1 led
-#define bi1     4     // BI1 czujnik ruchu
+#define ao1     3                                                 // AO1 led
+#define bi1     4                                                 // BI1 czujnik ruchu
 
 // library
-#include <EEPROM.h>
 #include <MySensors.h>
 
 #define CHILD_ID_AO1     1
@@ -102,7 +101,7 @@ void loop(){
        pwm--;                                                     // odejmij jeden
     }    
     analogWrite(ao1,pwm);                                         // ustaw wysterowanie wyjścia na bieżący PWM
-    time_fade = millis() + fade_interval;                                    // ustaw czas wykonania następnego kroku za 25mS
+    time_fade = millis() + fade_interval;                         // ustaw czas wykonania następnego kroku za 25mS
   }
 }
 // **************************************************************//
